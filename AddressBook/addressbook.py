@@ -36,14 +36,17 @@ class Contact:
 class AddressBook:
     def __init__(self, name):
         self.name = name
-        self.contact_dict = {}
+        self.__contact_dict = {}
+    def __len__(self):
+        return len(self.__contact_dict)
+
 
     def add_contact(self, person):
         """
         Function to add the contact person
         """
         try:
-            self.contact_dict.update({person.first_name: person})
+            self.__contact_dict.update({person.first_name: person})
         except Exception as e:
             logging.error(e)
 
@@ -52,7 +55,7 @@ class AddressBook:
         Function to get the contact
         """
         try:
-            return self.contact_dict.get(name)
+            return self.__contact_dict.get(name)
         except Exception as e:
             logging.error(e)
 
@@ -62,7 +65,7 @@ class AddressBook:
     #     """
     #     try:
     #         person_name = input("Enter person name you want to update: ")
-    #         contact_exist = self.contact_dict.get(person_name)
+    #         contact_exist = self.__contact_dict.get(person_name)
     #         if not contact_exist:
     #             print("name not present")
     #             return
@@ -83,8 +86,8 @@ class AddressBook:
         try:
             print(
                 "{:<10} {:<10} {:<10} {:<10} {:<10} ".format('sl_no', 'full_name', 'address', 'phone_number', 'email'))
-            for i in self.contact_dict:
-                contact_obj = self.contact_dict.get(i)
+            for i in self.__contact_dict:
+                contact_obj = self.__contact_dict.get(i)
                 print(contact_obj.as_string())
         except Exception as e:
             logging.error(e)
@@ -98,7 +101,7 @@ class AddressBook:
                 print("name doesn't exist")
                 return
 
-            self.contact_dict.pop(name_)
+            self.__contact_dict.pop(name_)
         except Exception as e:
             logging.error(e)
 
